@@ -1,21 +1,34 @@
 class Solution {
 public:
-    string reverseVowels(string s) {
-        string ans;
-       for(int i =s.size()-1;i>=0;i--){
-           if(s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u'||
-             s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U')
-           ans.push_back(s[i]);   
+
+bool isvowel(char x)
+{
+    if (x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u' || x == 'A' ||x == 'E' || x == 'I' || x == 'O' || x == 'U')
+        return true;
+    return false;
+}
+
+string reverseVowels(string s) {
+    
+    int start = 0;
+    int end = s.length()-1;
+    
+    while(start<end)
+    {
+        if(isvowel(s[start]) and isvowel(s[end]))
+        {
+            swap(s[start],s[end]);
+            start++;
+            end--;
         }
-        int res = 0;
-     for(int i =0;i<s.size();i++)
-     {
-      if(s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u'||  s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U')
-      {     s[i] = ans[res];
-         res++;
-     }
-         
-     }
-        return s;
+        else if(isvowel(s[start]))
+        {
+            end--;
+        }
+        else
+            start++;
     }
-};
+    return s;
+  }
+};  
+    
