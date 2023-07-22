@@ -43,15 +43,15 @@ class Solution
     //Function to remove duplicates from unsorted linked list.
     Node * removeDuplicates( Node *head) 
     {
-        unordered_map<int,int>mp;
+        unordered_set<int>st;
         Node* curr = head;
-        mp[curr->data]++;
+        st.insert(curr->data);
         while(curr != NULL && curr->next != NULL){
-            if(mp.find(curr->next->data) != mp.end())
+            if(st.find(curr->next->data) != st.end())
               curr->next = curr->next->next;
             else
             {
-              mp[curr->next->data]++;
+              st.insert(curr->next->data);
               curr = curr->next;
             }
             
