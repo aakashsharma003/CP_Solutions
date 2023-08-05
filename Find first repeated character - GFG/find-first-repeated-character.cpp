@@ -16,20 +16,21 @@ int main()
 }
 // } Driver Code Ends
 
-
+// T.C(N) S.C->O(1)
 string firstRepChar(string s)
 {
     string ans = "-1";
-    bool visited[26] = {false};
+    // agar direct index ki jgh character use krne h toh 128 ka array lo 
+    bool visited[128] = {false};
     for(int i=0;i<s.size();i++){
-        if(visited[s[i]- 'a']){
+        if(visited[s[i]]){
             ans.pop_back();
             ans.pop_back();
             ans.push_back(s[i]);
             return ans;
         }    
         else
-        visited[s[i]-'a'] = true;
+        visited[s[i]] = true;
     }
     return ans;
 }
