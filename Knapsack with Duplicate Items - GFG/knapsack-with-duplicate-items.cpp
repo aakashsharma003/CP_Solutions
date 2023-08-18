@@ -14,9 +14,7 @@ public:
     {
        vector<int> prev(maxweight+1,0),cur(maxweight+1,0);
         for(int w = 1;w<=maxweight;w++){
-            if(w % wt[0] == 0)
             prev[w] = val[0]*(w / wt[0]);
-            else prev[w] = val[0]*(w/wt[0]);
         }
           
         for(int indx = 1;indx<n;indx++){
