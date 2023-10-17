@@ -35,15 +35,18 @@ class Solution {
      
         int vis[v] = {0};
         
-        bool flag = false;
-        for(int i =0;i<v;i++){
-            if(!vis[i]){
-                flag = detectCycle(i,vis,adj);
+        for(int i = 0;i < v;i++)
+        {
+            if(vis[i] == false)
+            {
+                if(detectCycle(i,vis,adj) == true)
+                {
+                   return true;    
+                }
             }
-            if(flag) return true;
         }
             
-      return flag;
+        return false;
     }
 };
 
