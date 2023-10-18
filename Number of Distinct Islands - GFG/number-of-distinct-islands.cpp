@@ -12,24 +12,33 @@ class Solution {
        int delrow[4] = {-1,0,+1,0};
        int delcol[4] = {0,+1,0,-1};
         
-    void dfs(int &srow, int &scol, int row, int col, vector<pair<int,int>>&ds, vector<vector<int>>& vis, vector<vector<int>>& grid){
+    void bfs(int srow, int scol, vector<pair<int,int>>&ds, vector<vector<int>>& vis, vector<vector<int>>& grid){
         int n = grid.size();
         int m = grid[0].size();
-        // ds.push_back({0,0});
-        vis[row][col] = 1;
+        ds.push_back({srow-srow, scol-scol});
         
-        for(int i = 0;i < 4;i++){
-            int nrow = row + delrow[i];
-            int ncol = col + delcol[i];
+        queue<pair<int,int>>q;
+        q.push({srow,scol});
+        vis[srow][scol] = 1;
+        
+        while(!q.empty()){
             
-            if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && !vis[nrow][ncol] && grid[nrow][ncol] == 1){
-                vis[nrow][ncol] = 1;
-                ds.push_back({nrow-srow,ncol-scol});
-                dfs(srow, scol, nrow, ncol, ds, vis,grid);
-            }
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+                
+            for(int i = 0;i < 4;i++){
+               int nrow = row + delrow[i];
+               int ncol = col + delcol[i];
+            
+               if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && !vis[nrow][ncol] && grid[nrow][ncol] == 1){
+                  vis[nrow][ncol] = 1;
+                  ds.push_back({nrow-srow,ncol-scol});
+                  q.push({nrow,ncol});
+                }
+             }
         }
-        
-        
+       return;
     }
     
     int countDistinctIslands(vector<vector<int>>& grid) {
@@ -46,10 +55,8 @@ class Solution {
             {
                 vector<pair<int,int>>island;
                if(grid[i][j] == 1 && !vis[i][j]){
-                   int srow = i,scol = j;
                 //   starting row & starting col to store the shape of island
-                 island.push_back({srow-srow,scol-scol});
-                 dfs(srow, scol, i, j, island, vis, grid);
+                 bfs(i, j, island, vis, grid);
                  st.insert(island);
                }
             }
