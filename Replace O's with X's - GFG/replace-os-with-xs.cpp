@@ -8,12 +8,9 @@ using namespace std;
 // User function Template for C++
 
 class Solution{
-    
-private:
-     int dx[4] = {-1,0,+1,0};
-     int dy[4] = {0,+1,0,-1};
 public:
-    
+    int dx[4] = {-1,0,+1,0};
+    int dy[4] = {0,+1,0,-1};
     void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &mat){
         int n = mat.size();
         int m = mat[0].size();
@@ -51,10 +48,10 @@ public:
         // traversing  column wise boundary O's
                 
         for(int j = 0;j< m;j++){
-            if(mat[0][j] == 'O' && j != 0 && j != m-1 && !vis[0][j]){
+            if(mat[0][j] == 'O' && !vis[0][j]){
                 dfs(0, j, vis, mat);
             }
-            if(mat[n-1][j] == 'O' && j != 0 && j != m-1 && !vis[n-1][j]){
+            if(mat[n-1][j] == 'O' && !vis[n-1][j]){
                 dfs(n-1, j, vis, mat);
             }
         }
