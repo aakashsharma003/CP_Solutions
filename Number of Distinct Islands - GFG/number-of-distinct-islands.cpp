@@ -12,10 +12,11 @@ class Solution {
        int delrow[4] = {-1,0,+1,0};
        int delcol[4] = {0,+1,0,-1};
         
-    void bfs(int srow, int scol, vector<pair<int,int>>&ds, vector<vector<int>>& vis, vector<vector<int>>& grid){
+    void bfs(int srow, int scol, string &s, vector<vector<int>>& vis, vector<vector<int>>& grid){
         int n = grid.size();
         int m = grid[0].size();
-        ds.push_back({srow-srow, scol-scol});
+        s.push_back(srow-srow - '0');
+        s.push_back(scol-scol - '0');
         
         queue<pair<int,int>>q;
         q.push({srow,scol});
@@ -33,7 +34,9 @@ class Solution {
             
                if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && !vis[nrow][ncol] && grid[nrow][ncol] == 1){
                   vis[nrow][ncol] = 1;
-                  ds.push_back({nrow-srow,ncol-scol});
+                //   ds.push_back({nrow-srow,ncol-scol});
+                  s.push_back(nrow - srow - '0');
+                  s.push_back(ncol - scol - '0');
                   q.push({nrow,ncol});
                 }
              }
@@ -46,18 +49,18 @@ class Solution {
         int n = grid.size();
         int m = grid[0].size();
         
-        set<vector<pair<int,int>>>st;
+        set<string>st;
         vector<vector<int>>vis(n,vector<int>(m,0));
         
         for(int i = 0;i < n;i++)
         {
             for(int j = 0;j < m;j++)
             {
-                vector<pair<int,int>>island;
+                string str;
                if(grid[i][j] == 1 && !vis[i][j]){
                 //   starting row & starting col to store the shape of island
-                 bfs(i, j, island, vis, grid);
-                 st.insert(island);
+                 bfs(i, j, str, vis, grid);
+                 st.insert(str);
                }
             }
             
