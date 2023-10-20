@@ -5,21 +5,15 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-  bool check(int node,int* color,vector<int>adj[]){
-        queue<int>q;
-	    q.push(node);
-	    color[node] = 0;
-	    
-	    while(!q.empty()){
-	        int node = q.front();
-	        q.pop();
-	        
-	        for(auto &it: adj[node]){
+   //color component 
+  bool dfs(int node,int col, int* color,vector<int>adj[]){
+	    color[node] = col;
+	
+	   for(auto &it: adj[node]){
 	           // if adjacent node is not colored yet
 	           //you will give the opposite color of the node
 	            if(color[it] == -1){
-	               color[it] = !color[node];
-	               q.push(it);
+	               if(dfs(it, !color[node], color, adj) == false) return false;
 	            }
 	           //is the adjacent guy having same color
 	           //someone did color it on some other path 
@@ -27,7 +21,6 @@ public:
 	               return false;
 	           }
 	        }
-	    }
 	    
 	    return true; 
 	}
@@ -42,11 +35,14 @@ public:
 	    
 	    for(int i = 0;i < v;i++){
 	        if(color[i] == -1){
-	            if(!check(i,color,adj)) return false;
+	            if(dfs(i, 0, color, adj) == false){
+	                 return false;
+	            }
 	        }
 	    }
-	   return  true;
 	   
+	    return true;
+	    
 	}
 };
 
