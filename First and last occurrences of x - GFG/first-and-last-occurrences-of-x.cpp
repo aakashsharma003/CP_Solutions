@@ -8,19 +8,13 @@ class Solution
     public:
     vector<int> find(int arr[], int n , int x )
     {
-        vector<int>ans;
-        if(arr[0] == x) ans.push_back(0);
-        for(int i = 1;i<n-1;i++){
-            if(arr[i] == x)
-            if(arr[i - 1] != arr[i] || arr[i] != arr[i+1]){
-                ans.push_back(i);
-            }
-        }
-        if(arr[n - 1] == x) ans.push_back(n - 1);
-        if(ans.size() == 1) ans.push_back(ans[0]);
-        if(ans.size() == 0)
-        return {-1,-1};
-        return ans;
+        // code here
+        int l = lower_bound(arr, arr+n, x) - arr;
+        int first = (l == n ? -1 :  (arr[l] == x ? l: -1));
+        int u = upper_bound(arr, arr+n, x) - arr;
+        int last = arr[u - 1] == x ? u-1 : -1;
+        
+        return {first, last};
     }
 };
 
